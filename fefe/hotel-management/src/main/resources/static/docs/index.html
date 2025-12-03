@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Instruções — Processo de Desenvolvimento</title>
+    <style>
+        :root{--accent:#06b6d4;--muted:#55606a;font-family:Inter,system-ui,Arial,Helvetica,sans-serif}
+        body{margin:0;background:#f6f8fa;color:#0f1724;line-height:1.5;padding:28px}
+        .container{max-width:900px;margin:0 auto;background:#fff;padding:24px;border-radius:8px;box-shadow:0 6px 18px rgba(10,20,30,0.06)}
+        h1{margin-top:0}
+        h2{color:#0b3954;margin-bottom:6px}
+        p{margin:0 0 12px 0;color:#222}
+        .code-table{width:100%;border-collapse:collapse;margin:12px 0 20px 0}
+        .code-table th, .code-table td{border:1px solid #e6e9ed;padding:8px;text-align:left}
+        .code-table th{background:#f2f6f9}
+        .actors{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+        .actor{background:linear-gradient(90deg,#eaf6fb,#f7fcff);padding:10px 14px;border-radius:8px;border:1px solid #dbeef6}
+        .note{font-size:0.95rem;color:var(--muted);margin-bottom:12px}
+        pre{white-space:pre-wrap;background:#f8fafc;padding:12px;border-radius:6px;border:1px solid #eef4f8;color:#05324a}
+        a.link{color:var(--accent);text-decoration:none}
+        footer{margin-top:18px;color:var(--muted);font-size:0.9rem}
+    </style>
+</head>
+<body>
+<main class="container">
+    <h1>2. Desenvolvimento</h1>
+
+    <h2>2.1 Processo de Software</h2>
+    <p class="note">O projeto seguirá uma metodologia ágil, preferencialmente Kanban, para garantir entregas rápidas e adaptabilidade às prioridades do negócio hoteleiro.</p>
+
+    <h3>2.1.1 Análise de Requisitos</h3>
+    <p>O levantamento de requisitos focou na simplicidade e utilidade para o ambiente hoteleiro, evitando complexidades desnecessárias e garantindo que as funcionalidades essenciais para o controle hoteleiro sejam atendidas.</p>
+
+    <table class="code-table" aria-describedby="funcionais">
+        <caption id="funcionais"><strong>Requisitos Funcionais</strong></caption>
+        <thead>
+        <tr><th>CÓDIGO</th><th>DESCRIÇÃO</th></tr>
+        </thead>
+        <tbody>
+        <tr><td>RF.001</td><td>Permitir o cadastro, edição e exclusão de Clientes com validação de campos obrigatórios.</td></tr>
+        <tr><td>RF.002</td><td>O sistema deve controlar a disponibilidade dos quartos em tempo real e evitar reservas duplicadas para a mesma data.</td></tr>
+        <tr><td>RF.003</td><td>O sistema deve registrar o Check-in e o Check-out do cliente, atualizando o status do quarto.</td></tr>
+        <tr><td>RF.004</td><td>O sistema deve permitir o registro de serviços adicionais consumidos pelo cliente durante a hospedagem.</td></tr>
+        <tr><td>RF.005</td><td>O sistema deve gerar relatórios mensais de ocupação, faturamento e serviços adicionais.</td></tr>
+        <tr><td>RF.006</td><td>Possibilitar a integração com o site existente para recebimento de novas reservas online.</td></tr>
+        </tbody>
+    </table>
+
+    <table class="code-table" aria-describedby="nao-funcionais">
+        <caption id="nao-funcionais"><strong>Requisitos Não-Funcionais</strong></caption>
+        <thead>
+        <tr><th>CÓDIGO</th><th>DESCRIÇÃO</th></tr>
+        </thead>
+        <tbody>
+        <tr><td>RNF.001</td><td>Usabilidade: A interface deve ser responsiva (desktop, tablets e smartphones).</td></tr>
+        <tr><td>RNF.002</td><td>Desempenho: O sistema deve suportar um tempo de resposta máximo de 3 segundos para consultas e registros.</td></tr>
+        <tr><td>RNF.003</td><td>Segurança: O acesso ao sistema deve ter autenticação de usuários (Recepcionista, Gerente) e níveis de permissão.</td></tr>
+        <tr><td>RNF.004</td><td>Confiabilidade: O sistema deve realizar backup automático diário do banco de dados.</td></tr>
+        </tbody>
+    </table>
+
+    <h3>2.1.2 Projeto</h3>
+
+    <h4>2.1.2.1 Diagrama de Casos de Uso</h4>
+    <p>O Diagrama de Casos de Uso (DCU) modela as interações primárias no sistema, garantindo que as funcionalidades mais críticas (reserva, check-in, faturamento) estejam bem definidas.</p>
+
+    <p><strong>Quem são os atores?</strong></p>
+    <div class="actors">
+        <div class="actor"><strong>Gerente Administrativo (G)</strong><div class="note">Acesso total, configurações e relatórios estratégicos.</div></div>
+        <div class="actor"><strong>Recepcionista (R)</strong><div class="note">Cadastro de clientes, reserva, check-in/check-out e serviços.</div></div>
+        <div class="actor"><strong>Cliente (C)</strong><div class="note">Realiza reservas via integração com site.</div></div>
+    </div>
+
+    <p><strong>Casos de Uso mapeados para Histórias de Usuário</strong></p>
+    <table class="code-table" aria-describedby="cus">
+        <thead><tr><th>ID</th><th>Caso de Uso</th><th>Atores Envolvidos</th><th>Histórias Associadas</th></tr></thead>
+        <tbody>
+        <tr><td>CU1</td><td>Fazer Reserva</td><td>R, C</td><td>HU01, HU02</td></tr>
+        <tr><td>CU2</td><td>Cadastrar/Atualizar Cliente</td><td>R</td><td>HU03</td></tr>
+        <tr><td>CU3</td><td>Realizar Check-in</td><td>R</td><td>HU04</td></tr>
+        <tr><td>CU4</td><td>Realizar Check-out e Faturamento</td><td>R, G</td><td>HU05, HU06</td></tr>
+        <tr><td>CU5</td><td>Gerar Relatórios</td><td>G</td><td>HU07</td></tr>
+        <tr><td>CU6</td><td>Gerenciar Serviços Adicionais</td><td>R</td><td>HU08</td></tr>
+        </tbody>
+    </table>
+
+    <h4>2.1.2.2 Diagrama de Classes</h4>
+    <p>A modelagem de classes inclui entidades essenciais: Cliente, Quarto, Reserva, Serviço e Fatura. Relacionamentos principais:</p>
+    <ul>
+        <li>Cliente (1) — (N) Reserva</li>
+        <li>Quarto (1) — (1 por período) Reserva</li>
+        <li>Reserva (1) — (N) Serviço</li>
+        <li>Reserva (1) — (1) Fatura</li>
+    </ul>
+
+    <footer>
+        <p>Documento gerado automaticamente — versão de desenvolvimento.</p>
+    </footer>
+</main>
+</body>
+</html>
